@@ -43,7 +43,7 @@ function coinBrief(t, v) {
       wallet: f.dev.address, past_launches: f.dev.launches, graduated: f.dev.graduated, coins_with_real_traders: f.dev.realCoins,
       painted_charts: f.dev.paintedCoins, best_past: f.dev.top?.slice(0, 3).map((c) => `$${c.symbol} ath ${usd(c.athUsd)}`),
     } : 'unknown (not a pump.fun launch)',
-    x: f.x.handle ? { handle: '@' + f.x.handle, followers: f.x.followers, account_age_days: f.x.accountAgeDays, posts_about_coin: f.x.mentionsCoin, latest_posts: f.x.posts.slice(0, 3).map((p) => p.slice(0, 160)) } : (f.links.twitter ? 'community link' : 'none'),
+    project_x_account_linked_on_the_coin_page_NOT_the_dev: f.x.handle ? { handle: '@' + f.x.handle, followers: f.x.followers, account_age_days: f.x.accountAgeDays, posts_about_coin: f.x.mentionsCoin, latest_posts: f.x.posts.slice(0, 3).map((p) => p.slice(0, 160)) } : (f.links.twitter ? 'community link' : 'none'),
     notable_traders_holding: f.notable ? { list: f.notable.list.map((n) => ({ who: n.x ? '@' + n.x : n.name || n.wallet.slice(0, 6) + '…', wallet: n.wallet, pnl: n.pnlUsd != null ? `${usd(n.pnlUsd)} ${n.pnlPeriod}` : null, holds: usd(n.valueUsd) })), gmgn_smart_wallets: f.notable.gmgn?.smart, gmgn_kol_wallets: f.notable.gmgn?.renowned } : null,
     website: f.website.domain ? `${f.website.domain}, ${f.website.ageDays ?? '?'} days old` : 'none',
   };
@@ -92,7 +92,7 @@ export async function apiChat({ messages, page, persona: p, lang: l, petName: na
   const system = [
     `You are ${name}, a small pixel pet living in the user's browser. You are a sharp Solana memecoin analyst friend. Personality: ${PERSONA_PROMPT[p]}.`,
     `Always reply in English, even if the user writes in another language. Answer exactly what the user asked, directly, using the numbers from COIN DATA / CURRENT SITE CHECK when relevant (name concrete figures: holders, dev launches, fees, mcap). If they ask "is it good / should I buy" give your honest read with the 2-3 strongest reasons; it's an opinion, not financial advice, but don't dodge.`,
-    'Do not tell the user to run /scan when you already have COIN DATA. If you have no data for what they ask, say so in one line and suggest /scan <address>. Never invent numbers. Never ask for seed phrases or keys.',
+    'The dev is only the dev wallet in COIN DATA.dev; the X account linked on the coin page is NOT the dev and is often an unrelated famous account. Do not tell the user to run /scan when you already have COIN DATA. If you have no data for what they ask, say so in one line and suggest /scan <address>. Never invent numbers. Never ask for seed phrases or keys.',
     `Style: lowercase, 1-4 short sentences, no lists, max one emoji, no greeting fluff. Your name is exactly "${name}" (never translate or transliterate it). Write wallet addresses exactly as given (case matters), or shorten them like Hufy2k…Q4dw.`,
   ].join('\n') + ctx;
 

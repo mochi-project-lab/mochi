@@ -263,7 +263,7 @@ button.btn.ghost { background: var(--soft); color: var(--ink); }
 .head .sp { flex: 1; }
 .head button { all: unset; cursor: pointer; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 6px; color: var(--muted); font: 700 15px/1 system-ui, sans-serif; }
 .head button:hover { background: var(--soft); color: var(--ink); }
-.msgs { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; }
+.msgs { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 12px; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; }
 .m { max-width: 88%; padding: 7px 10px; border-radius: 11px; white-space: pre-wrap; word-wrap: break-word; }
 .m.fp { align-self: flex-start; background: var(--card); border: 1.5px solid var(--line); border-bottom-left-radius: 3px; }
 .m.fu { align-self: flex-end; background: var(--mint); color: #1E1B2E; border: 1.5px solid var(--line); border-bottom-right-radius: 3px; }
@@ -1030,7 +1030,8 @@ button.btn.ghost { background: var(--soft); color: var(--ink); }
     const tg = e.target;
     if (tg === lastTarget) return;
     lastTarget = tg;
-    if (!mounted || tg === hostEl || S.minimized) return;
+    if (tg === hostEl) { hoverAddr = null; clearTimeout(hoverTimer); return; } // pointer is on the pet's own UI
+    if (!mounted || S.minimized) return;
     if (!S.features.sniffChip && !S.features.autoScan) return;
     const a = addrNear(tg);
     if (a === hoverAddr) return;

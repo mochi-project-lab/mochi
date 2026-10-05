@@ -10,7 +10,7 @@ One package per store family, built by `node scripts/pack-extension.mjs` (from `
 
 Before submitting: bump `version` in `extension/manifest.json`, set the default backend in `extension/common.js`
 (`DEFAULTS.backend`) to the public HTTPS server (the store build must not point at localhost), rebuild the zips,
-and publish the privacy policy page on the site (`https://<domain>/privacy`).
+and publish the privacy policy page on the site (`https://petmochi.app/privacy`).
 
 Assets in `Mochi/store/`:
 - `1-sniff-a-coin.png`, `2-site-warning.png`, `3-settings.png` — screenshots, 1280×800
@@ -67,8 +67,8 @@ An on-page assistant that checks crypto tokens and websites for risk and shows t
 
 - **Category:** Productivity → Tools (alternative: Lifestyle → Fun)
 - **Language:** English
-- **Privacy policy URL:** `https://<domain>/privacy`
-- **Homepage / support URL:** `https://<domain>/`
+- **Privacy policy URL:** `https://petmochi.app/privacy`
+- **Homepage / support URL:** `https://petmochi.app/`
 
 **Permission justifications (Privacy practices tab):**
 - `storage` — Saves the user's settings (pet name, colour, personality, feature toggles, position, sites where the pet is hidden, optional own API key) and short-lived caches of scan results.
@@ -95,7 +95,7 @@ An on-page assistant that checks crypto tokens and websites for risk and shows t
 ## Microsoft Edge Add-ons
 
 - **Category:** Productivity
-- **Privacy policy URL:** `https://<domain>/privacy` (required — the extension sends data to a server)
+- **Privacy policy URL:** `https://petmochi.app/privacy` (required — the extension sends data to a server)
 - **Search terms (max 7):** solana, memecoin, rug check, phishing, crypto safety, pump.fun, pixel pet
 
 **Submit steps:**
@@ -119,12 +119,12 @@ is only read from Firefox 140; older versions ignore it, that is fine.
 - **Name / summary (≤250 chars) / description:** as above.
 - **Categories:** Privacy & Security; Other
 - **License:** MIT (or whatever the repo uses)
-- **Privacy policy:** paste the privacy section from `README.md` or link `https://<domain>/privacy`.
-- **Support site:** `https://<domain>/`
+- **Privacy policy:** paste the privacy section from `README.md` or link `https://petmochi.app/privacy`.
+- **Support site:** `https://petmochi.app/`
 
 **Notes for reviewers:**
 > No build step, no minification, no remote code: the package is the source. The pet talks only to the backend URL in
-> settings (default https://<domain>). Coin scans send the token address. Site checks send only the origin of the page
+> settings (default https://petmochi.app). Coin scans send the token address. Site checks send only the origin of the page
 > and two booleans (wallet button / seed field present). Chat sends page title and up to 4000 chars of visible text,
 > only when the user sends a message. Nothing runs in the page world and wallets are never touched.
 > To test: open https://pump.fun/coin/7GUnr7krtQhJwd6ASY2VUprd9t4c64zcgCsjdmZepump,

@@ -6,3 +6,5 @@ server/data/
 server/public-dl/
 dist/
 *.log
+scripts/deploy.sh
+media/

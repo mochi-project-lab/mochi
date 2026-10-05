@@ -13,7 +13,7 @@
       offerScan: true,     // offer a scan when you open a coin page
     },
     sleepMinutes: 10,
-    backend: 'http://localhost:4400',
+    backend: 'https://petmochi.app',
     orKey: '',
     hiddenSites: [],
     extraHosts: [],
@@ -49,6 +49,8 @@
     if (!Array.isArray(out.hiddenSites)) out.hiddenSites = [];
     if (!Array.isArray(out.extraHosts)) out.extraHosts = [];
     out.lang = 'en'; // English only; an old stored lang is ignored
+    // the pre-release default was a local dev server; move those installs to the live one
+    if (out.backend === 'http://localhost:4400') out.backend = DEFAULTS.backend;
     return out;
   }
 

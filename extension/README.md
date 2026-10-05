@@ -51,7 +51,7 @@ No `tabs`, `scripting`, `webRequest`, `cookies` or `history` permissions. No rem
 
 ## Privacy
 
-The extension talks only to the backend URL in settings (default `http://localhost:4400`). It sends:
+The extension talks only to the backend URL in settings (default `https://petmochi.app`). It sends:
 
 - **Coin scan** (when you click "sniff?", use `/scan`, or turn on auto-scan): the Solana address, your persona and pet name.
 - **Site check** (once per domain per 6 h, if "Site warnings" is on; skipped for localhost and private IPs): the site's
