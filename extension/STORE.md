@@ -102,7 +102,7 @@ An on-page assistant that checks crypto tokens and websites for risk and shows t
 1. Partner Center (partner.microsoft.com/dashboard/microsoftedge) → enrol in the Edge program (free) → **Create new extension**.
 2. **Packages:** upload `mochi-extension.zip` (same as Chrome).
 3. **Availability:** Public, all markets.
-4. **Properties:** category Productivity, privacy policy URL, website URL, support contact; "does this extension access personal information": **Yes** (domains of visited pages; page text when the user chats).
+4. **Properties:** category Productivity, privacy policy URL, website URL, support contact hi@petmochi.app; "does this extension access personal information": **Yes** (domains of visited pages; page text when the user chats).
 5. **Store listings → English:** description (long description above), short description, `logo-300.png` as store logo, screenshots (1280×800), search terms.
 6. **Submit** with notes for certification (same text as the AMO reviewer notes below). Review is usually up to 7 business days.
 
