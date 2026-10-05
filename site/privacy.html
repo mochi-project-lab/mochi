@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — Mochi</title>
+<meta name="description" content="What the Mochi browser extension and website collect, why, and what they never touch.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Pixelify+Sans:wght@600&family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar">
+  <a class="logo" href="./"><canvas class="logo-pet" width="32" height="32" aria-hidden="true"></canvas><span>Mochi</span></a>
+  <nav class="links" aria-label="Menu"><a class="link" href="./">back to the pet</a></nav>
+</header>
+
+<main class="doc">
+  <h1>Privacy policy</h1>
+  <p class="date">Last updated: October 5, 2026</p>
+  <p class="intro">Mochi is a browser extension and a website. This page explains what they collect, why, and what they never touch.</p>
+
+  <h2>What we collect</h2>
+  <ul>
+    <li><b>Coin addresses you scan.</b> When you hover or scan a token, the token or trading-pair address is sent to the Mochi server so it can look up public on-chain data, market data and social links.</li>
+    <li><b>Domains you check.</b> For site checks, the extension sends only the site's domain (not the path or query) and a few simple signals about the page: whether it shows a "connect wallet" button, whether it has a field that asks for a seed phrase, and, only if one of those is present, the page title. It does not send the page content for this.</li>
+    <li><b>Chat messages.</b> When you type in the pet's chat, your message is sent together with the page address, title and a trimmed part of the visible page text (up to about 4,000 characters), so the pet can answer about the page. Page text is sent only when you chat.</li>
+    <li><b>Basic request data.</b> Like any web server, ours sees your IP address. We use it only for rate limiting and abuse protection and do not keep it in long-term logs.</li>
+  </ul>
+
+  <h2>How it is processed</h2>
+  <p>Requests are processed by the Mochi server. To write the verdicts and chat replies, the server sends the relevant data (coin facts, domain facts, your chat message and page text) to a large language model provider, currently OpenRouter. The server also queries public sources such as blockchain RPC nodes, market data APIs, domain registration records and public social profiles.</p>
+  <p>Scan results are cached for a short time (minutes for coins, hours for domains) so repeat checks are fast. Chat messages are not stored after the reply is sent.</p>
+
+  <h2>Your own API key</h2>
+  <p>You can add your own OpenRouter key in the extension settings. It is stored only in your browser (<code>chrome.storage</code>) and is sent with your requests so the server can use it instead of ours. The server does not log or store it.</p>
+
+  <h2>What stays on your device</h2>
+  <p>Your settings (pet name, colour, personality, which features are on) are stored locally in <code>chrome.storage</code>. On the website, your pet settings and your last five checks are stored in your browser's local storage. None of this is sent to us except as part of a request you make.</p>
+
+  <h2>What we never collect</h2>
+  <ul>
+    <li>Wallet private keys or seed phrases.</li>
+    <li>Signatures or transactions. Mochi never asks you to sign anything and cannot send transactions.</li>
+    <li>Your browsing history. Pages are checked only when you hover a coin on a supported site, open a page with a wallet prompt, run a command, or chat.</li>
+    <li>Passwords, form contents or cookies.</li>
+  </ul>
+
+  <h2>Sharing and selling</h2>
+  <p>We do not sell your data. We do not use it for advertising. We share it only with the services needed to answer your request (the LLM provider and the public data sources above).</p>
+
+  <h2>Not financial advice</h2>
+  <p>Scores and verdicts are automated reads of public data. They can be wrong. Do your own research.</p>
+
+  <h2>Changes and contact</h2>
+  <p>If this policy changes, we will update this page and the date above. Questions: <!-- TODO: real contact email --><a href="mailto:privacy@example.com">privacy@example.com</a>.</p>
+</main>
+
+<script src="/shared/sprite.js"></script>
+<script>if (!window.PetSprite) document.write('<script src="sprite.js"><\/script>');</script>
+<script>
+  (function () {
+    var c = 'mint';
+    try { var s = JSON.parse(localStorage.getItem('pet:settings') || 'null'); if (s && s.color) c = s.color; } catch (e) {}
+    if (!window.PetSprite) return;
+    document.querySelectorAll('canvas.logo-pet').forEach(function (cv) { PetSprite.draw(cv.getContext('2d'), 'happy', c, 2); });
+  })();
+</script>
+</body>
+</html>

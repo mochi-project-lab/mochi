@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mochi — sniff a coin</title>
+<meta name="description" content="A little pixel pet that checks coins and links. Paste a Solana CA, pair or link and it tells you if it's a larp. Also a browser extension.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F6F3EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16141F" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mochi — sniff a coin">
+<meta property="og:description" content="Paste a Solana CA, pair or link. The pet checks holders, the dev and the X account, and tells you if it's a larp.">
+<!-- TODO: og:image (1200x630 PNG of the pet) and og:url once the domain is set -->
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Pixelify+Sans:wght@600&family=Silkscreen&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="bar">
+  <a class="logo" href="./" aria-label="Mochi, start over"><canvas class="logo-pet" width="32" height="32" aria-hidden="true"></canvas><span>Mochi</span></a>
+  <nav class="links" aria-label="Menu">
+    <button type="button" class="link" id="extBtn" aria-haspopup="dialog">get the extension</button>
+    <span class="pop-wrap">
+      <button type="button" class="link" id="cmdBtn" aria-expanded="false" aria-controls="cmdPop">commands</button>
+      <div class="pop px-box" id="cmdPop" hidden>
+        <p class="pop-title">In the extension</p>
+        <dl class="cmds">
+          <div><dt>/scan <i>[address]</i></dt><dd>sniff the coin on this page, or any address</dd></div>
+          <div><dt>/site</dt><dd>check if this site is safe</dd></div>
+          <div><dt>/sleep</dt><dd>nap, stays quiet</dd></div>
+          <div><dt>/name <i>&lt;name&gt;</i></dt><dd>rename it</dd></div>
+          <div><dt>/color <i>&lt;colour&gt;</i></dt><dd>mint peach lilac sky lemon rose ghost</dd></div>
+          <div><dt>/help</dt><dd>everything it can do</dd></div>
+        </dl>
+        <p class="pop-foot"><kbd>Alt</kbd> + <kbd>P</kbd> opens the chat. Anything else you type is just chat.</p>
+      </div>
+    </span>
+    <!-- TODO: real GitHub repo URL -->
+    <a class="link hide-s" href="https://github.com/" rel="noopener">github</a>
+    <a class="link hide-s" href="privacy.html">privacy</a>
+  </nav>
+</header>
+
+<main class="home" id="home">
+  <section class="pet-col" aria-label="The pet">
+    <div class="bubble px-box" id="bubble" aria-live="polite"><span class="who"></span><span class="text"></span></div>
+
+    <div class="pet-zone">
+      <button class="stage" id="stage" type="button" aria-label="Pet settings" aria-expanded="false" aria-controls="settings">
+        <span class="bob"><canvas id="pet" aria-hidden="true"></canvas></span>
+        <span class="shadow" aria-hidden="true"></span>
+      </button>
+      <button class="gear px-box" id="gear" type="button" aria-label="Pet settings" aria-expanded="false" aria-controls="settings">
+        <svg viewBox="0 0 8 8" width="16" height="16" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h2v1h1v1h1v1h1v2H7v1H6v1H5v1H3V7H2V6H1V5H0V3h1V2h1V1h1zm0 3v2h2V3z"/></svg>
+      </button>
+    </div>
+
+    <div class="settings px-box" id="settings" role="dialog" aria-label="Pet settings" hidden>
+      <div class="set-head"><span>your pet</span><button type="button" class="x" id="setClose" aria-label="Close settings">×</button></div>
+      <label class="field"><span class="label">name</span>
+        <input id="nameInput" type="text" maxlength="16" autocomplete="off" spellcheck="false"></label>
+      <div class="field"><span class="label" id="colorLabel">colour</span>
+        <div class="swatches" role="group" aria-labelledby="colorLabel"></div></div>
+      <div class="field"><span class="label" id="personaLabel">voice</span>
+        <div class="seg" role="group" aria-labelledby="personaLabel" id="personas">
+          <button type="button" data-p="chill">chill</button><button type="button" data-p="degen">degen</button><button type="button" data-p="nerd">nerd</button><button type="button" data-p="mom">mom</button>
+        </div></div>
+      <p class="set-note">Saved in this browser.</p>
+    </div>
+
+    <form class="ask" id="checkForm" role="search" autocomplete="off">
+      <label class="sr" for="checkInput">Coin address, pair or link</label>
+      <input id="checkInput" type="text" inputmode="url" placeholder="paste a CA, pair or link" spellcheck="false" maxlength="300" enterkeyhint="go">
+      <button type="submit" class="go">sniff</button>
+    </form>
+
+    <div class="recent" id="recent" hidden>
+      <span class="recent-l">recent</span>
+      <ul id="recentList"></ul>
+    </div>
+  </section>
+
+  <section class="result" id="result" aria-live="polite" hidden>
+    <div class="result-bar">
+      <button type="button" class="link" id="copyLink">copy link</button>
+      <button type="button" class="link" id="clearBtn">clear</button>
+    </div>
+    <div id="checkOut"></div>
+  </section>
+</main>
+
+<dialog class="drawer" id="ext" aria-labelledby="extTitle">
+  <div class="drawer-in">
+    <div class="drawer-head">
+      <h2 id="extTitle">get the extension</h2>
+      <button type="button" class="x" id="extClose" aria-label="Close">×</button>
+    </div>
+    <p class="drawer-lead">The same pet in the corner of every page. Hover a coin on axiom, gmgn, pump.fun or dexscreener and it sniffs it. Opens a sketchy site, it warns you.</p>
+
+    <h3>stores</h3>
+    <ul class="stores">
+      <li><span>Chrome Web Store</span><em>soon</em></li><!-- TODO: store URL -->
+      <li><span>Edge Add-ons</span><em>soon</em></li><!-- TODO: store URL -->
+      <li><span>Firefox Add-ons</span><em>soon</em></li><!-- TODO: store URL -->
+    </ul>
+    <p class="small">Brave, Opera and Arc install from the Chrome Web Store.</p>
+
+    <h3>install now from zip</h3>
+    <div class="zips">
+      <a class="btn btn-solid" href="/download/mochi-extension.zip" download>Chrome · Edge · Brave · Arc</a>
+      <a class="btn btn-line" href="/download/mochi-extension-firefox.zip" download>Firefox</a>
+    </div>
+    <ol class="steps">
+      <li>Unzip it. Open <code>chrome://extensions</code> (Edge: <code>edge://extensions</code>).</li>
+      <li>Turn on <b>Developer mode</b>.</li>
+      <li>Click <b>Load unpacked</b> and pick the unzipped folder.</li>
+    </ol>
+    <p class="small">Firefox: <code>about:debugging</code> → This Firefox → Load Temporary Add-on → pick <code>manifest.json</code>. It stays until Firefox restarts.</p>
+
+    <p class="drawer-fine">Sends coin addresses and domains to the Mochi server, page text only when you chat. Never asks for keys, seed phrases or signatures. Not financial advice. <a href="privacy.html">Privacy</a> · <a href="https://github.com/" rel="noopener">GitHub</a><!-- TODO: repo URL --></p>
+  </div>
+</dialog>
+
+<script src="/shared/sprite.js"></script>
+<script>if (!window.PetSprite) document.write('<script src="sprite.js"><\/script>');</script>
+<script src="app.js"></script>
+</body>
+</html>

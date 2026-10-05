@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mochi settings</title>
+<link rel="stylesheet" href="ui.css">
+<link rel="stylesheet" href="options.css">
+</head>
+<body>
+<main>
+  <header class="top">
+    <canvas class="sprite logo" id="logo" width="16" height="16"></canvas>
+    <h1>Mochi</h1>
+    <span class="muted">settings</span>
+    <span class="saved" id="saved">saved</span>
+  </header>
+
+  <div class="layout">
+    <div class="col">
+      <section class="box sec">
+        <h2>Your pet</h2>
+        <label class="field">
+          <span>Name</span>
+          <input type="text" id="petName" maxlength="20" autocomplete="off">
+        </label>
+        <div class="field">
+          <span>Colour</span>
+          <div class="swatches" id="swatches"></div>
+        </div>
+      </section>
+
+      <section class="box sec">
+        <h2>Personality</h2>
+        <div class="personas" id="personas"></div>
+      </section>
+
+      <section class="box sec">
+        <h2>Features</h2>
+        <div id="features"></div>
+        <label class="field inline">
+          <span>Fall asleep after</span>
+          <span class="row"><input type="number" id="sleepMinutes" min="1" max="240" class="num"> <span class="muted">min</span></span>
+        </label>
+        <label class="field">
+          <span>Extra sites for hover sniff <small class="muted">one domain per line</small></span>
+          <textarea id="extraHosts" rows="2" placeholder="example-scope.io"></textarea>
+        </label>
+      </section>
+
+      <section class="box sec">
+        <h2>Backend</h2>
+        <label class="field">
+          <span>Server URL</span>
+          <span class="row"><input type="url" id="backend" spellcheck="false"><button class="btn ghost small" id="test">Test</button></span>
+          <small class="muted" id="testOut">Where the pet reads coins and sites. Default: http://localhost:4400</small>
+        </label>
+        <label class="field">
+          <span>Your own OpenRouter key <small class="muted">optional</small></span>
+          <input type="password" id="orKey" autocomplete="off" spellcheck="false" placeholder="sk-or-…">
+          <small class="muted">Stored only in this browser. Sent with each request to the server above, which uses it for AI answers instead of its own key and never stores it.</small>
+        </label>
+      </section>
+
+      <section class="box sec">
+        <h2>Hidden on</h2>
+        <div id="hidden" class="hidden-list"></div>
+      </section>
+
+      <div class="row end">
+        <button class="btn ghost" id="reset">Reset everything</button>
+      </div>
+    </div>
+
+    <aside class="col preview">
+      <div class="box stage">
+        <div class="bubble" id="pvSay">hi, i'm Mochi.</div>
+        <canvas class="sprite big" id="pv" width="16" height="16"></canvas>
+        <div class="ground"></div>
+      </div>
+      <div class="moods" id="moods"></div>
+      <p class="muted tip">Click a mood to preview. Drag the pet on any page to move it. Alt+P opens the chat.</p>
+    </aside>
+  </div>
+</main>
+<script src="sprite.js"></script>
+<script src="common.js"></script>
+<script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "Mochi — pixel pet that sniffs memecoins",
+  "short_name": "Mochi",
+  "version": "0.1.0",
+  "description": "A tiny pixel pet in the corner of your browser. Sniffs Solana coins on memescopes and warns about sketchy sites.",
+  "minimum_chrome_version": "111",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Mochi",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "sprite.js",
+        "common.js",
+        "content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "commands": {
+    "toggle-panel": {
+      "suggested_key": {
+        "default": "Alt+P"
+      },
+      "description": "Open or close the pet chat"
+    }
+  }
+}
